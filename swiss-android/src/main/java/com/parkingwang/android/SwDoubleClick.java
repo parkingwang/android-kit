@@ -25,6 +25,7 @@ public class SwDoubleClick {
     });
 
     private final String mConfirmMessage;
+    private final int mConfirmMessageId;
     private final Activity mActivity;
 
     private long mResetMs = 2500;
@@ -52,6 +53,7 @@ public class SwDoubleClick {
     public SwDoubleClick(Activity activity, String message) {
         mActivity = activity;
         mConfirmMessage = message;
+        mConfirmMessageId = 0;
     }
 
     /**
@@ -60,7 +62,9 @@ public class SwDoubleClick {
      * @param messageResId 双击提示消息资源ID
      */
     public SwDoubleClick(Activity activity, int messageResId) {
-        this(activity, activity.getString(messageResId));
+        mActivity = activity;
+        mConfirmMessage = null;
+        mConfirmMessageId = messageResId;
     }
 
     /**
@@ -81,7 +85,9 @@ public class SwDoubleClick {
             if ( ! mWaitingSecondClick.get()) {
                 mWaitingSecondClick.set(true);
                 mHandler.sendEmptyMessageDelayed(0, mResetMs);
-                mOnShowMessageListener.onShowMessage(mConfirmMessage);
+                mOnShowMessageListener.onShowMessage(mConfirmMessageId == 0 ?
+                        mConfirmMessage :
+                        mActivity.getString(mConfirmMessageId));
                 return true;
             }else{
                 mOnDoubleClickHandler.onDoubleClick();

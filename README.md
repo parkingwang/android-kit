@@ -35,3 +35,18 @@ public class MainActivity extends AppCompatActivity {
 ### SwToast - 一款Toast提示组件
 
 支持 Tip, Success, Failed, Warning 三个提示类型；
+
+----
+
+## 依赖
+
+````gradle
+repositories {
+    maven { url "https://dl.bintray.com/parkingwang/maven" }
+}
+
+dependencies {
+    compile 'com.parkingwang:swiss-android:0.0.3-ALPHA'
+}
+
+```
